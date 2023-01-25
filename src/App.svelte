@@ -2,6 +2,7 @@
   import Welcome from "./lib/components/Welcome/index.svelte";
   import Random from "./lib/components/Random/index.svelte";
   import Table from "./lib/components/Table/index.svelte";
+  import Save from "./lib/components/Save/index.svelte";
 
   import favicon from "./assets/favicon.png";
 </script>
@@ -12,6 +13,9 @@
   </header>
   <section>
     <Random />
+  </section>
+  <section>
+    <Save />
   </section>
   <section>
     <Table />
