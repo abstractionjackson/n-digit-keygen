@@ -14,7 +14,7 @@
 
 <div
   id="welcome"
-  class="flex min-h-[50vh] w-full flex-col justify-end bg-gradient-to-t from-neutral-300 to-neutral-400 py-8 text-center text-black text-opacity-90"
+  class="flex min-h-[25vh] w-full flex-col justify-end py-8 text-center text-black text-opacity-90"
 >
   <h1 class="text-4xl font-bold">
     <div

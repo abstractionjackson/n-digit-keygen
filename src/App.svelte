@@ -7,7 +7,9 @@
   import favicon from "./assets/favicon.png";
 </script>
 
-<main class="min-h-screen bg-neutral-300 pb-12">
+<main
+  class="min-h-screen bg-gradient-to-b from-neutral-300 to-neutral-400 px-4 pb-12"
+>
   <header>
     <Welcome />
   </header>
