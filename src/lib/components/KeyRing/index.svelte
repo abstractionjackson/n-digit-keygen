@@ -1,6 +1,8 @@
 <script lang="ts">
   import { DateTime } from "luxon";
-  import { key } from "../../../stores";
+  import { key } from "$app/stores";
+  import Status from "./Status.svelte";
+  import DeleteButton from "./DeleteButton.svelte";
 </script>
 
 <div class="mx-auto my-4 w-full max-w-xl">
@@ -9,45 +11,25 @@
   <table class="mx-auto bg-neutral-200">
     <thead>
       <tr>
+        <th>Status</th>
         <th>Created</th>
         <th>Code</th>
-        <th>Status</th>
+        <th>Lock</th>
+        <th>Bearer</th>
+        <th />
       </tr>
     </thead>
     <tbody>
       <tr>
+        <td>
+          <Status status={$key.status} />
+        </td>
         <td>{DateTime.fromISO($key.created_at).toLocaleString()}</td>
         <td>{$key.code}</td>
+        <td>{$key.lock ?? "None"}</td>
+        <td>{$key.bearer ?? "None"}</td>
         <td>
-          {#if $key.status === "active"}
-            <!-- a blue dot -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 text-blue-500"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm0 2a10 10 0 100-20 10 10 0 000 20z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          {:else}
-            <!-- a gray dot -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 text-gray-500"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm0 2a10 10 0 100-20 10 10 0 000 20z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          {/if}
+          <DeleteButton />
         </td>
       </tr>
     </tbody>

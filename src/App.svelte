@@ -1,10 +1,9 @@
 <script lang="ts">
-  import Welcome from "./lib/components/Welcome/index.svelte";
-  import Random from "./lib/components/Random/index.svelte";
-  import KeyRing from "./lib/components/KeyRing/index.svelte";
-  import Save from "./lib/components/Save/index.svelte";
-
-  import favicon from "./assets/favicon.png";
+  import { key } from "$app/stores";
+  import Welcome from "$lib/components/Welcome/index.svelte";
+  import Random from "$lib/components/Random/index.svelte";
+  import KeyRing from "$lib/components/KeyRing/index.svelte";
+  import Save from "$lib/components/Save/index.svelte";
 </script>
 
 <main
@@ -20,7 +19,9 @@
     <Save />
   </section>
   <hr class="my-12 mx-auto h-[.25rem] w-[25vw] border-none bg-neutral-400" />
-  <section>
-    <KeyRing />
-  </section>
+  {#if $key}
+    <section>
+      <KeyRing />
+    </section>
+  {/if}
 </main>

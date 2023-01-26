@@ -1,9 +1,18 @@
-import type { DateTime } from 'luxon';
+import type { DateTime } from "luxon";
 
-export type Key {
+export type KeyStatus =
+  | "silent"
+  | "inactive"
+  | "active"
+  | "used"
+  | "deactivated";
+
+export type Key = {
   id: string;
   code: string;
-  created_at: DateTime;
-  updated_at?: DateTime;
-  status: 'active' | 'inactive';
-}
+  created_at: string;
+  updated_at?: string;
+  status: KeyStatus;
+  lock_id?: string;
+  bearer_id?: string;
+};

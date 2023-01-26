@@ -14,6 +14,11 @@ const writableKey = () => {
       //save to localStorage
       localStorage.setItem("key", JSON.stringify(key));
     },
+    delete: () => {
+      set(null);
+      //delete from localStorage
+      localStorage.removeItem("key");
+    },
   };
 };
 export const key = writableKey();

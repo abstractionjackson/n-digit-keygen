@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { createKey } from "../../utils";
-  import { code, key } from "../../../stores";
-  import type { Key } from "../../types";
+  import { createKey } from "$lib/utils";
+  import { code, key } from "$app/stores";
+  import type { Key } from "$lib/types";
 
   let currentKey: Key;
 
