@@ -1,13 +1,13 @@
 <script lang="ts">
   import Welcome from "./lib/components/Welcome/index.svelte";
   import Random from "./lib/components/Random/index.svelte";
-  import Table from "./lib/components/Table/index.svelte";
+  import KeyRing from "./lib/components/KeyRing/index.svelte";
   import Save from "./lib/components/Save/index.svelte";
 
   import favicon from "./assets/favicon.png";
 </script>
 
-<main class="min-h-screen bg-neutral-300">
+<main class="min-h-screen bg-neutral-300 pb-12">
   <header>
     <Welcome />
   </header>
@@ -17,7 +17,8 @@
   <section>
     <Save />
   </section>
+  <hr class="my-12 mx-auto h-[.25rem] w-[25vw] border-none bg-neutral-400" />
   <section>
-    <Table />
+    <KeyRing />
   </section>
 </main>

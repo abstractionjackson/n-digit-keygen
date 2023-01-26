@@ -1,24 +1,20 @@
 <script lang="ts">
-  import { v4 as uuidv4 } from "uuid";
-  import { DateTime } from "luxon";
-
-  import { code as keycode } from "../../../stores";
+  import { createKey } from "../../utils";
+  import { code, key } from "../../../stores";
   import type { Key } from "../../types";
 
-  let key: Key;
+  let currentKey: Key;
 
   const handleSave = () => {
-    key = {
-      id: uuidv4(),
-      code: $keycode,
-      created_at: DateTime.local(),
-    };
-    //serialize and save to local storage
-    const currentKey = JSON.stringify(key);
-    localStorage.setItem("key", currentKey);
+    currentKey = createKey($code); //serialize and save to local storage
+    key.save(currentKey);
   };
 </script>
 
-<div>
-  <button on:click={handleSave}>Save</button>
+<div class="mx-auto w-fit">
+  <button
+    on:click={handleSave}
+    class="border border-black bg-neutral-200 py-3 px-6 text-xl font-bold tracking-wide ring-black hover:bg-neutral-300"
+    >Save</button
+  >
 </div>

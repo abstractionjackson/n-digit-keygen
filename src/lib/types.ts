@@ -5,4 +5,5 @@ export type Key {
   code: string;
   created_at: DateTime;
   updated_at?: DateTime;
+  status: 'active' | 'inactive';
 }
