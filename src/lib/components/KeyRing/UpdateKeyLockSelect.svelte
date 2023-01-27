@@ -9,7 +9,7 @@
     const lockId = (event.target as HTMLSelectElement).value;
     if (lockId === "new-lock") {
       return lockList.addLock(
-        `PLACEHOLDER_${DateTime.now().toLocaleString(DateTime.TIME_SIMPLE)}`
+        `DEMO_LOCK_${DateTime.now().toLocaleString(DateTime.TIME_SIMPLE)}`
       );
     }
     keyRing.updateKeyLock(keyId, lockId);

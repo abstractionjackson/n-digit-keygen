@@ -1,5 +1,6 @@
 <script lang="ts">
   import { DateTime } from "luxon";
+  import { ui } from "$app/stores";
   import { bearerList, keyRing } from "$app/stores";
 
   export let keyId: string;
@@ -8,15 +9,24 @@
   const handleChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
     const bearerId = target.value;
+    console.log("bearerId", bearerId);
 
     //tmp handle add
     if (bearerId === "new-bearer") {
       return bearerList.addBearer(
-        `PLACEHOLDER_${DateTime.now().toLocaleString(DateTime.TIME_SIMPLE)}`
+        `DEMO_BEARER_${DateTime.now().toLocaleString(DateTime.TIME_SIMPLE)}`
       );
     }
     //handle update
-    keyRing.updateKeyBearer(keyId, bearerId);
+    try {
+      keyRing.updateKeyBearer(keyId, bearerId);
+    } catch (error) {
+      if (error instanceof Error) {
+        ui.setWarning(error.message);
+      } else {
+        console.error(error);
+      }
+    }
   };
 </script>
 

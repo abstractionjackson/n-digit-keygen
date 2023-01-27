@@ -1,6 +1,7 @@
 <script lang="ts">
   import { DateTime } from "luxon";
-  import { keyRing } from "$app/stores";
+  import { fly } from "svelte/transition";
+  import { keyRing, ui } from "$app/stores";
   import Status from "./Status.svelte";
   import DeleteButton from "./DeleteButton.svelte";
   import UpdateKeyLockSelect from "./UpdateKeyLockSelect.svelte";
@@ -45,6 +46,19 @@
       {/each}
     </tbody>
   </table>
+  {#if $ui.warning}
+    <div
+      transition:fly
+      class="my-4 flex items-center bg-yellow-400 p-2 text-neutral-800"
+    >
+      <p class="ml-8">{$ui.warning}</p>
+      <button
+        on:click={ui.resetWarning}
+        class="ml-auto border border-black bg-neutral-200 p-1 px-3"
+        >Dismiss</button
+      >
+    </div>
+  {/if}
 </div>
 
 <!-- styles -->

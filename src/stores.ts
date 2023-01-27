@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 import {
   getLockList,
+  getBearerList,
   createLock,
   createKey,
   createBearer,
@@ -10,6 +11,7 @@ import {
 import { DEFAULT_LENGTH } from "./lib/constants";
 import type { Key } from "./lib/types";
 
+// Code
 const writeableCode = () => {
   const { subscribe, set, update } = writable({
     n: DEFAULT_LENGTH,
@@ -40,6 +42,7 @@ const writeableCode = () => {
 };
 export const code = writeableCode();
 
+// KeyRing
 const writableKeyRing = () => {
   const { subscribe, update } = writable(loadKeyRing());
 
@@ -82,11 +85,10 @@ const writableKeyRing = () => {
       update((keyRing) => {
         newKeyRing.push(
           ...keyRing.map((key) => {
-            // prevent bearer update if no lock is assigned to the key
-            if (!key.lock_id) {
-              throw new Error("No lock is assigned to the key");
-            }
             if (key.id === id) {
+              if (!key.lock_id) {
+                throw new Error("No lock is assigned to the key");
+              }
               const status = key.status === "inactive" ? "active" : key.status;
               return {
                 ...key,
@@ -145,7 +147,7 @@ const writableLockList = () => {
 export const lockList = writableLockList();
 // BearerList
 const writableBearerList = () => {
-  const { subscribe, update } = writable([]);
+  const { subscribe, update } = writable(getBearerList());
 
   return {
     subscribe,
@@ -156,6 +158,7 @@ const writableBearerList = () => {
         newBearerList.push(...bearerList);
         return newBearerList;
       });
+      localStorage.setItem("bearerList", JSON.stringify(newBearerList));
     },
     deleteBearer: (id: string) => {
       const newBearerList = [];
@@ -168,3 +171,25 @@ const writableBearerList = () => {
 };
 
 export const bearerList = writableBearerList();
+
+// UI
+const writableUI = () => {
+  const { subscribe, set } = writable({
+    warning: "",
+  });
+
+  return {
+    subscribe,
+    setWarning: (warning: string) => {
+      set({
+        warning,
+      });
+    },
+    resetWarning: () => {
+      set({
+        warning: "",
+      });
+    },
+  };
+};
+export const ui = writableUI();
