@@ -3,6 +3,7 @@ import {
   getLockList,
   createLock,
   createKey,
+  createBearer,
   getStringOfNRandDigits,
   loadKeyRing,
 } from "./lib/utils";
@@ -76,6 +77,32 @@ const writableKeyRing = () => {
       //save to localStorage
       localStorage.setItem("keyRing", JSON.stringify(newKeyRing));
     },
+    updateKeyBearer: (id: string, bearer_id: string) => {
+      const newKeyRing = [];
+      update((keyRing) => {
+        newKeyRing.push(
+          ...keyRing.map((key) => {
+            // prevent bearer update if no lock is assigned to the key
+            if (!key.lock_id) {
+              throw new Error("No lock is assigned to the key");
+            }
+            if (key.id === id) {
+              const status = key.status === "inactive" ? "active" : key.status;
+              return {
+                ...key,
+                bearer_id: [...key.bearer_id, bearer_id],
+                primary_bearer_id: bearer_id,
+                status,
+              };
+            }
+            return key;
+          })
+        );
+        return newKeyRing;
+      });
+      //save to localStorage
+      localStorage.setItem("keyRing", JSON.stringify(newKeyRing));
+    },
     deleteKey: (id: string) => {
       const newKeyRing = [];
       update((keyRing) => {
@@ -116,3 +143,28 @@ const writableLockList = () => {
   };
 };
 export const lockList = writableLockList();
+// BearerList
+const writableBearerList = () => {
+  const { subscribe, update } = writable([]);
+
+  return {
+    subscribe,
+    addBearer: (name: string) => {
+      const bearer = createBearer(name);
+      const newBearerList = [bearer];
+      update((bearerList) => {
+        newBearerList.push(...bearerList);
+        return newBearerList;
+      });
+    },
+    deleteBearer: (id: string) => {
+      const newBearerList = [];
+      update((bearerList) => {
+        newBearerList.push(...bearerList.filter((bearer) => bearer.id !== id));
+        return newBearerList;
+      });
+    },
+  };
+};
+
+export const bearerList = writableBearerList();

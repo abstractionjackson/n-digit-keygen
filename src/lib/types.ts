@@ -10,6 +10,11 @@ export type Code = {
   value: string;
 };
 
+export type Bearer = {
+  id: string;
+  name: string;
+};
+
 export type KeyStatus =
   | "silent"
   | "inactive"
@@ -24,5 +29,6 @@ export type Key = {
   updated_at?: string;
   status: KeyStatus;
   lock_id?: string;
-  bearer_id?: string;
+  bearer_id: string[];
+  active_bearer_id?: string;
 };

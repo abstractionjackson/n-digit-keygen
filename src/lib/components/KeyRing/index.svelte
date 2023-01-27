@@ -4,6 +4,7 @@
   import Status from "./Status.svelte";
   import DeleteButton from "./DeleteButton.svelte";
   import UpdateKeyLockSelect from "./UpdateKeyLockSelect.svelte";
+  import UpdateKeyBearerSelect from "./UpdateKeyBearerSelect.svelte";
 </script>
 
 <div class="mx-auto w-full max-w-xl">
@@ -29,13 +30,14 @@
           <td>{DateTime.fromISO(key.created_at).toLocaleString()}</td>
           <td>{key.code}</td>
           <td>
-            {#if key.lock_id}
-              <UpdateKeyLockSelect keyId={key.id} selected={key.lock_id} />
-            {:else}
-              <UpdateKeyLockSelect keyId={key.id} />
-            {/if}
+            <UpdateKeyLockSelect keyId={key.id} lockId={key.lock_id} />
           </td>
-          <td>{key.bearer ?? "None"}</td>
+          <td>
+            <UpdateKeyBearerSelect
+              keyId={key.id}
+              primaryBearerId={key.primary_bearer_id}
+            />
+          </td>
           <td>
             <DeleteButton id={key.id} />
           </td>

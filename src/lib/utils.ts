@@ -4,6 +4,7 @@ import {
   DEFAULT_STATUS,
   DEFAULT_KEY_RING,
   DEFAULT_LOCK_LIST,
+  DEFAULT_BEARER_LIST,
 } from "./constants";
 import type { Key, LockList } from "./types";
 
@@ -24,6 +25,7 @@ export const createKey = (code: string): Key => {
     code,
     created_at: DateTime.now().toISO(),
     status: DEFAULT_STATUS,
+    bearer_id: [],
   };
 };
 // KeyRing
@@ -33,6 +35,13 @@ export const loadKeyRing = () => {
     return DEFAULT_KEY_RING;
   }
   return JSON.parse(keyRing);
+};
+// Lock
+export const createLock = (name: string): Lock => {
+  return {
+    id: uuidv4(),
+    name,
+  };
 };
 // LockList
 export const getLockList = () => {
@@ -45,10 +54,18 @@ export const getLockList = () => {
 export const setLockList = (lockList: Lock[]) => {
   localStorage.setItem("lockList", JSON.stringify(lockList));
 };
-// Lock
-export const createLock = (name: string): Lock => {
+// Bearer
+export const createBearer = (name: string): Bearer => {
   return {
     id: uuidv4(),
     name,
   };
+};
+// BearerList
+export const getBearerList = () => {
+  const bearerList = localStorage.getItem("bearerList");
+  if (!bearerList) {
+    return DEFAULT_BEARER_LIST;
+  }
+  return JSON.parse(bearerList);
 };
