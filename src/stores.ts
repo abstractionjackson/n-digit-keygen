@@ -61,7 +61,7 @@ const writableKeyRing = () => {
           ...keyRing.map((key) => {
             if (key.id === id) {
               // if the key is for the first time being provided a lock, then it is being activated -->
-              const status = key.status === "silent" ? "active" : key.status;
+              const status = key.status === "silent" ? "inactive" : key.status;
               return {
                 ...key,
                 status,
