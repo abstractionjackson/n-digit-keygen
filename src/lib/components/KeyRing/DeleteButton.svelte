@@ -34,7 +34,7 @@
   </button>
   {#if show}
     <!-- a confirmation dialog -->
-    <div class="modal modal-open absolute top-10" id="delete">
+    <div class="modal-open absolute top-10 z-10" id="delete">
       <div class="modal-overlay" />
       <div
         class="modal-container flex w-48 flex-col justify-center border border-black bg-neutral-300"

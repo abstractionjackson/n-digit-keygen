@@ -1,6 +1,5 @@
 <script lang="ts">
   import { code, keyRing } from "$app/stores";
-
   const handleSave = () => {
     keyRing.addKey($code.value);
   };

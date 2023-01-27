@@ -3,9 +3,10 @@
   import { keyRing } from "$app/stores";
   import Status from "./Status.svelte";
   import DeleteButton from "./DeleteButton.svelte";
+  import UpdateKeyLockSelect from "./UpdateKeyLockSelect.svelte";
 </script>
 
-<div class="mx-auto my-4 w-full max-w-xl">
+<div class="mx-auto w-full max-w-xl">
   <h2 class="my-4 text-center text-2xl font-bold">Key Ring</h2>
   <!-- a table of all the keys -->
   <table class="mx-auto bg-neutral-200">
@@ -27,7 +28,13 @@
           </td>
           <td>{DateTime.fromISO(key.created_at).toLocaleString()}</td>
           <td>{key.code}</td>
-          <td>{key.lock ?? "None"}</td>
+          <td>
+            {#if key.lock_id}
+              <UpdateKeyLockSelect keyId={key.id} selected={key.lock_id} />
+            {:else}
+              <UpdateKeyLockSelect keyId={key.id} />
+            {/if}
+          </td>
           <td>{key.bearer ?? "None"}</td>
           <td>
             <DeleteButton id={key.id} />

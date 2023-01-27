@@ -1,5 +1,10 @@
 import type { DateTime } from "luxon";
 
+export type Lock = {
+  id: string;
+  name: string;
+};
+
 export type Code = {
   n: number;
   value: string;

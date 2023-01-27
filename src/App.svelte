@@ -19,7 +19,6 @@
     <Save />
     <Generator />
   </section>
-  <hr class="my-12 mx-auto h-[.25rem] w-[25vw] border-none bg-neutral-400" />
   <section>
     <KeyRing />
   </section>

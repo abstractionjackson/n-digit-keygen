@@ -1,8 +1,9 @@
 import { writable } from "svelte/store";
 import {
+  getLockList,
+  createLock,
   createKey,
   getStringOfNRandDigits,
-  loadKey,
   loadKeyRing,
 } from "./lib/utils";
 import { DEFAULT_LENGTH } from "./lib/constants";
@@ -53,6 +54,28 @@ const writableKeyRing = () => {
       //save to localStorage
       localStorage.setItem("keyRing", JSON.stringify(newKeyRing));
     },
+    updateKeyLock: (id: string, lock_id: string) => {
+      const newKeyRing = [];
+      update((keyRing) => {
+        newKeyRing.push(
+          ...keyRing.map((key) => {
+            if (key.id === id) {
+              // if the key is for the first time being provided a lock, then it is being activated -->
+              const status = key.status === "silent" ? "active" : key.status;
+              return {
+                ...key,
+                status,
+                lock_id,
+              };
+            }
+            return key;
+          })
+        );
+        return newKeyRing;
+      });
+      //save to localStorage
+      localStorage.setItem("keyRing", JSON.stringify(newKeyRing));
+    },
     deleteKey: (id: string) => {
       const newKeyRing = [];
       update((keyRing) => {
@@ -65,22 +88,31 @@ const writableKeyRing = () => {
   };
 };
 export const keyRing = writableKeyRing();
-//TODO: remove below
-const writableKey = () => {
-  const { subscribe, set } = writable(loadKey());
+// LockList
+const writableLockList = () => {
+  const { subscribe, update } = writable(getLockList());
 
   return {
     subscribe,
-    save: (key: Key) => {
-      set(key);
+    addLock: (name: string) => {
+      const lock = createLock(name);
+      const newLockList = [lock];
+      update((lockList) => {
+        newLockList.push(...lockList);
+        return newLockList;
+      });
       //save to localStorage
-      localStorage.setItem("key", JSON.stringify(key));
+      localStorage.setItem("lockList", JSON.stringify(newLockList));
     },
-    delete: () => {
-      set(null);
-      //delete from localStorage
-      localStorage.removeItem("key");
+    deleteLock: (id: string) => {
+      const newLockList = [];
+      update((lockList) => {
+        newLockList.push(...lockList.filter((lock) => lock.id !== id));
+        return newLockList;
+      });
+      //save to localStorage
+      localStorage.setItem("lockList", JSON.stringify(newLockList));
     },
   };
 };
-export const key = writableKey();
+export const lockList = writableLockList();

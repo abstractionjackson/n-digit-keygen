@@ -1,7 +1,11 @@
 import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
-import { DEFAULT_STATUS, DEFAULT_KEY_RING } from "./constants";
-import type { Key } from "./types";
+import {
+  DEFAULT_STATUS,
+  DEFAULT_KEY_RING,
+  DEFAULT_LOCK_LIST,
+} from "./constants";
+import type { Key, LockList } from "./types";
 
 export const getStringOfNRandDigits = (n: number) => {
   if (n <= 0) {
@@ -13,6 +17,7 @@ export const getStringOfNRandDigits = (n: number) => {
   }
   return result;
 };
+// Key
 export const createKey = (code: string): Key => {
   return {
     id: uuidv4(),
@@ -21,6 +26,7 @@ export const createKey = (code: string): Key => {
     status: DEFAULT_STATUS,
   };
 };
+// KeyRing
 export const loadKeyRing = () => {
   const keyRing = localStorage.getItem("keyRing");
   if (!keyRing) {
@@ -28,10 +34,21 @@ export const loadKeyRing = () => {
   }
   return JSON.parse(keyRing);
 };
-export const loadKey = () => {
-  const key = localStorage.getItem("key");
-  if (!key) {
-    return null;
+// LockList
+export const getLockList = () => {
+  const lockList = localStorage.getItem("lockList");
+  if (!lockList) {
+    return DEFAULT_LOCK_LIST;
   }
-  return JSON.parse(key);
+  return JSON.parse(lockList);
+};
+export const setLockList = (lockList: Lock[]) => {
+  localStorage.setItem("lockList", JSON.stringify(lockList));
+};
+// Lock
+export const createLock = (name: string): Lock => {
+  return {
+    id: uuidv4(),
+    name,
+  };
 };
