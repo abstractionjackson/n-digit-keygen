@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { code as keycode } from "../../../stores";
-  import { getStringOfNRandDigits } from "../../utils";
+  import { code } from "$app/stores";
+  import { getStringOfNRandDigits } from "$lib/utils";
   import chevronDown from "../../../assets/chevron_down.svg";
 
-  let n: number = 6;
-  $: selectWidth = n.toString().length === 1 ? "1.25em" : "1.75em";
+  $: selectWidth = $code.n.toString().length === 1 ? "1.25em" : "1.75em";
 
-  const handleChange = () => {
-    const code = getStringOfNRandDigits(n);
-    keycode.set(code);
+  const handleChange = (event: Event) => {
+    code.setByLength(parseInt((event.target as HTMLSelectElement).value));
   };
 </script>
 
@@ -22,13 +20,12 @@
       style="width: {selectWidth}; background-image: url({chevronDown});"
     >
       <select
-        bind:value={n}
         on:change={handleChange}
         class=" appearance-none bg-transparent text-red-600 underline"
         style="width: {selectWidth}"
       >
         {#each [4, 5, 6, 7, 8, 9, 10] as i}
-          {#if i === n}
+          {#if i === $code.n}
             <option value={i} selected>{i}</option>
           {:else}
             <option value={i}>{i}</option>

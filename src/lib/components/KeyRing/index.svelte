@@ -1,6 +1,6 @@
 <script lang="ts">
   import { DateTime } from "luxon";
-  import { key } from "$app/stores";
+  import { keyRing } from "$app/stores";
   import Status from "./Status.svelte";
   import DeleteButton from "./DeleteButton.svelte";
 </script>
@@ -20,18 +20,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-          <Status status={$key.status} />
-        </td>
-        <td>{DateTime.fromISO($key.created_at).toLocaleString()}</td>
-        <td>{$key.code}</td>
-        <td>{$key.lock ?? "None"}</td>
-        <td>{$key.bearer ?? "None"}</td>
-        <td>
-          <DeleteButton />
-        </td>
-      </tr>
+      {#each $keyRing as key}
+        <tr>
+          <td>
+            <Status status={key.status} />
+          </td>
+          <td>{DateTime.fromISO(key.created_at).toLocaleString()}</td>
+          <td>{key.code}</td>
+          <td>{key.lock ?? "None"}</td>
+          <td>{key.bearer ?? "None"}</td>
+          <td>
+            <DeleteButton id={key.id} />
+          </td>
+        </tr>
+      {/each}
     </tbody>
   </table>
 </div>

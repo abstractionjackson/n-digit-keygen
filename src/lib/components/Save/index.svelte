@@ -1,20 +1,13 @@
 <script lang="ts">
-  import { createKey } from "$lib/utils";
-  import { code, key } from "$app/stores";
-  import type { Key } from "$lib/types";
-
-  let currentKey: Key;
+  import { code, keyRing } from "$app/stores";
 
   const handleSave = () => {
-    currentKey = createKey($code); //serialize and save to local storage
-    key.save(currentKey);
+    keyRing.addKey($code.value);
   };
 </script>
 
-<div class="mx-auto w-fit">
-  <button
-    on:click={handleSave}
-    class="border border-black bg-neutral-200 py-3 px-6 text-xl font-bold tracking-wide ring-black hover:bg-neutral-300"
-    >Save</button
-  >
-</div>
+<button
+  on:click={handleSave}
+  class="mx-4 border border-black bg-neutral-200 py-3 px-6 text-xl font-bold tracking-wide ring-black hover:bg-neutral-300"
+  >Save</button
+>

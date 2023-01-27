@@ -1,5 +1,10 @@
 import type { DateTime } from "luxon";
 
+export type Code = {
+  n: number;
+  value: string;
+};
+
 export type KeyStatus =
   | "silent"
   | "inactive"

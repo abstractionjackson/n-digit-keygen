@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { key } from "$app/stores";
+  import { keyRing } from "$app/stores";
+
+  export let id: string;
 
   let show: boolean = false;
 
@@ -8,10 +10,7 @@
   };
 
   const handleDelete = () => {
-    console.log("delete");
-    //todo: delete the key
-    key.delete();
-    //he button will be destroyed...
+    keyRing.deleteKey(id);
   };
 </script>
 

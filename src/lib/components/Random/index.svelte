@@ -8,11 +8,10 @@
 
 -->
 <script lang="ts">
-  import { code as keycode } from "../../../stores";
-
+  import { code } from "$app/stores";
   let icon: "copy" | "copied" = "copy";
   const copy = () => {
-    navigator.clipboard.writeText($keycode);
+    navigator.clipboard.writeText($code.value);
     icon = "copied";
     setTimeout(() => {
       icon = "copy";
@@ -20,7 +19,7 @@
   };
 </script>
 
-<div id="random" class="mx-auto py-4 text-center">
+<div id="random" class="texf-center mx-auto py-4">
   <div
     class="language-numerical relative mx-auto my-4 flex max-w-md justify-center border border-black bg-neutral-100 p-4 pl-8 text-center text-xl tracking-[1em] text-neutral-800 shadow-md shadow-gray-800"
   >
@@ -61,7 +60,7 @@
       {/if}
     </button>
     <pre class="flex justify-center"> 
-    <code>{$keycode}</code>
+    <code>{$code.value}</code>
   </pre>
   </div>
 </div>

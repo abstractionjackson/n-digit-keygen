@@ -1,16 +1,10 @@
 <script lang="ts">
-  import { generateKeycode } from "../utils";
-  let keycode: string = generateKeycode();
+  import { code } from "$app/stores";
+  import arrowPath from "./arrow-path.svg";
 </script>
 
-<section>
-    <header class="">
-      Six-digit keycode
-    </header>
-    <textarea bind:value={keycode}/>
-    <button id="clipboard-copy-keycsode">copy</button>
-  <button id="generator" class="">
-    Generate
-  </button>
-</section>
-
+<button
+  on:click={code.generate}
+  class="mx-4 border border-black bg-neutral-200 py-3 px-6 text-xl font-bold tracking-wide ring-black hover:bg-neutral-300"
+  ><img src={arrowPath} alt="Re-Generate" height="30px" width="30px" /></button
+>
