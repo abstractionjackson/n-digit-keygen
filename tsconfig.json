@@ -15,8 +15,8 @@
     "checkJs": true,
     "isolatedModules": true,
     "paths": {
-      "$app/*": ["src/*"],
-      "$lib/*": ["src/lib/*"]
+      "$app/*": ["./src/*"],
+      "$lib/*": ["./src/lib/*"]
     }
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
