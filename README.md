@@ -2,6 +2,8 @@
 
 A web app that generates numerical keys of length n.
 
+![GIF](./public/demo.gif)
+
 ## Use
 
 1. Install Dependencies
@@ -10,4 +12,3 @@ A web app that generates numerical keys of length n.
    `pnpm test`
 3. Start the development server
    `pnpm dev`
-
