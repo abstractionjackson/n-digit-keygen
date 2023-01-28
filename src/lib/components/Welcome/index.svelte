@@ -1,6 +1,5 @@
 <script lang="ts">
   import { code } from "$app/stores";
-  import { getStringOfNRandDigits } from "$lib/utils";
   import chevronDown from "../../../assets/chevron_down.svg";
 
   $: selectWidth = $code.n.toString().length === 1 ? "1.25em" : "1.75em";

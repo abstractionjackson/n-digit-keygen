@@ -30,5 +30,5 @@ export type Key = {
   status: KeyStatus;
   lock_id?: string;
   bearer_id: string[];
-  active_bearer_id?: string;
+  primary_bearer_id?: string;
 };

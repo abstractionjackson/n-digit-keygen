@@ -2,6 +2,7 @@
   import { code, keyRing } from "$app/stores";
   const handleSave = () => {
     keyRing.addKey($code.value);
+    code.generate();
   };
 </script>
 

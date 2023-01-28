@@ -174,20 +174,28 @@ export const bearerList = writableBearerList();
 
 // UI
 const writableUI = () => {
-  const { subscribe, set } = writable({
+  const { subscribe, set, update } = writable({
     warning: "",
+    digitSelectRef: null,
   });
 
   return {
     subscribe,
+    update,
     setWarning: (warning: string) => {
-      set({
-        warning,
+      update((ui) => {
+        return {
+          ...ui,
+          warning,
+        };
       });
     },
     resetWarning: () => {
-      set({
-        warning: "",
+      update((ui) => {
+        return {
+          ...ui,
+          warning: "",
+        };
       });
     },
   };

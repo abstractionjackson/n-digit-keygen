@@ -4,6 +4,7 @@
 
   export let keyId: string;
   export let lockId: string | undefined;
+  export let rowIndex: number;
 
   const handleChange = (event: Event) => {
     const lockId = (event.target as HTMLSelectElement).value;
@@ -16,9 +17,13 @@
   };
 </script>
 
-<select id="lock-select" on:change={handleChange} class="bg-neutral-200">
+<select
+  id={`lock-select-${rowIndex}`}
+  on:change={handleChange}
+  class="bg-neutral-200"
+>
   {#if !lockId}
-    <option value="" selected disabled> Select a lock </option>
+    <option value="" selected disabled> Select a Lock </option>
   {/if}
   {#each $lockList as lock}
     <option value={lock.id} selected={lock.id === lockId}>
