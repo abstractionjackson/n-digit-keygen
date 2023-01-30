@@ -8,7 +8,7 @@
   import UpdateKeyBearerSelect from "./UpdateKeyBearerSelect.svelte";
 </script>
 
-<div class="mx-auto w-full">
+<div class="mx-auto w-full overflow-auto">
   <h2 class="my-4 text-center text-2xl font-bold">Key Ring</h2>
   <!-- a table of all the keys -->
   <table class="mx-auto bg-neutral-200">
